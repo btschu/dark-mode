@@ -1,0 +1,142 @@
+* {
+	/* border: 0; */
+	box-sizing: border-box;
+	/* margin: 0;
+	padding: 0; */
+}
+
+/***** change font size below to change size of toggle switch *****/
+:root {
+	--hue: 223;
+	--bg: hsl(var(--hue),10%,100%);
+	--fg: hsl(var(--hue),10%,0%);
+	--primary: hsl(var(--hue),90%,55%);
+	--primaryT: hsla(var(--hue),90%,55%,0);
+	--transDur: 0.3s;
+	font-size: calc(16px + (32 - 16) * (100vw - 320px) / (1280 - 320));
+}
+
+html,
+body {
+	background-color: var(--bg);
+}
+
+body,
+input {
+	font: 1em/1.5 Fredoka, sans-serif;
+}
+
+body {
+  margin: 0;
+	color: var(--fg);
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+}
+
+.main-container {
+  text-align: center;
+}
+
+/* Light/Dark Toggle */
+
+/* Light */
+#sun {
+  margin-right: 20px;
+}
+
+.theme {
+	display: flex;
+	align-items: center;
+  justify-content: center;
+	-webkit-tap-highlight-color: transparent;
+}
+.theme__fill {
+	transition: transform var(--transDur) ease-in-out;
+}
+.theme__fill {
+	background-color: var(--bg);
+	display: block;
+	mix-blend-mode: difference;
+	position: fixed;
+	inset: 0;
+	height: 100%;
+	transform: translateX(-100%);
+}
+
+.theme__toggle {
+	z-index: 1;
+}
+
+.theme__label,
+.theme__toggle,
+.theme__toggle-wrap {
+	position: relative;
+}
+
+.theme__toggle,
+.theme__toggle:before {
+	display: block;
+}
+
+.theme__toggle {
+	background-color: hsl(48,90%,85%);
+	border-radius: 25% / 50%;
+	box-shadow: 0 0 0 0.125em var(--primaryT);
+	padding: 0.25em;
+	width: 6em;
+	height: 3em;
+	-webkit-appearance: none;
+	appearance: none;
+	transition:
+		background-color var(--transDur) ease-in-out,
+		box-shadow 0.15s ease-in-out,
+		transform var(--transDur) ease-in-out;
+}
+
+.theme__toggle:before {
+	background-color: hsl(48,90%,55%);
+	border-radius: 50%;
+	content: "";
+	width: 2.5em;
+	height: 2.5em;
+	transition:
+		background-color var(--transDur) ease-in-out,
+		transform var(--transDur) ease-in-out;
+}
+
+.theme__toggle:focus {
+	box-shadow: 0 0 0 0.125em var(--primary);
+	outline: transparent;
+}
+
+/* Dark */
+#moon {
+  margin-left: 20px;
+}
+
+.theme__toggle:checked {
+	background-color: hsl(198,90%,15%);
+}
+.theme__toggle:checked:before {
+	transform: translateX(3em);
+}
+.theme__toggle:checked:before {
+	background-color: hsl(198,90%,55%);
+}
+.theme__toggle:checked ~ .theme__fill {
+	transform: translateX(0);
+}
+
+.theme__toggle-wrap {
+	margin: 0 0.75em;
+}
+
+@supports selector(:focus-visible) {
+	.theme__toggle:focus {
+		box-shadow: 0 0 0 0.125em var(--primaryT);
+	}
+	.theme__toggle:focus-visible {
+		box-shadow: 0 0 0 0.125em var(--primary);
+	}
+}
